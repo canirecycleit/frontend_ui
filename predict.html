@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>CIRI</title>
+    <title>Can I Recycle It (BETA)</title>
     <!-- Add reference to Google fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- Google Material Design Styles -->
@@ -50,7 +50,7 @@
             outline: none;
             transition: border .24s ease-in-out;
             cursor: pointer;
-            background-image: url("https://storage.googleapis.com/public_colab_images/ai5/mushroom.svg");
+            background-image: url("/imgs/logo-fade.png");
             background-repeat: no-repeat;
             background-position: center;
         }
@@ -77,8 +77,8 @@
             <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
                 <button class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
                     aria-label="Open navigation menu">menu</button>
-                <span class="mdc-top-app-bar__title" style="font-weight: 900; font-size: 30px;">CIRI
-                    Identifier</span>
+                <span class="mdc-top-app-bar__title" style="font-weight: 900; font-size: 30px;">
+                    Can I Recycle It?</span>
             </section>
         </div>
     </header>
@@ -97,7 +97,7 @@
                 </div>
                 <div style="padding:20px;">
                     <span class="prediction" id="prediction_label"></span>
-                    <span class="mushroom_type" id="mushroom_type"></span>
+                    <span class="mushroom_type" id="can_recycle"></span>
                 </div>
             </div>
         </div>
@@ -113,8 +113,7 @@
     // file input
     var input_file = document.getElementById("input_file");
     var prediction_label = document.getElementById("prediction_label");
-    var prediction_accuracy = document.getElementById("prediction_accuracy");
-    var mushroom_type = document.getElementById("mushroom_type");
+    var can_recycle = document.getElementById("can_recycle");
     var input_file_view = document.getElementById('input_file_view');
 
     function upload_file() {
@@ -144,6 +143,7 @@
 
             // Display the results
             prediction_label.innerHTML = prediction_results["prediction"];
+            can_recycle.innerHTML = "Yes!"
         });
     }
 
