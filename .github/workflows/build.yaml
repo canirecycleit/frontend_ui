@@ -26,7 +26,7 @@ jobs:
           DOCKER_BUILDKIT: 1
         run: |
           set -e
-          docker build -t ciri_fontend:latest .
+          docker build -t ciri_frontend:latest .
           docker tag ciri_frontend:latest \
                       ghcr.io/${{ github.repository }}/ciri_frontend:latest
 
