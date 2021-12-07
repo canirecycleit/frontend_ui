@@ -1,63 +1,93 @@
 <!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
-<!--<![endif]-->
+<html>
 
 <head>
-  <meta charset="utf-8" />
+  <title>Can I Recycle It (BETA)</title>
+  <!-- Add reference to Google fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Google Material Design Styles -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <!-- Add javascript package axios for accessing APIs -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <link rel="shortcut icon" href="">
-  <title>
-    {% block page_title %}
-    CIRI Application
-    {% endblock %}
-  </title>
-  <meta name="description" content="{% block meta_description %}{% endblock %}" />
-  <meta name="author" content="{% block meta_author %}{% endblock %}" />
+  <!-- Add Stylesheet -->
+  <style>
+    body {
+      margin: 0;
+      background-color: #efefef;
+    }
 
-  <!-- Mobile viewport optimized: h5bp.com/viewport -->
-  <meta name="viewport" content="width=device-width" />
+    .mdc-top-app-bar {
+      background-color: #1c4385;
+    }
 
-  <link rel="stylesheet" type="text/css" href="" />
+    .content {
 
-  {% block css %}{% endblock %}
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 650px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .dropzone {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+      border-width: 2px;
+      border-radius: 2px;
+      border-color: #cccccc;
+      border-style: dashed;
+      background-color: #fafafa;
+      outline: none;
+      transition: border .24s ease-in-out;
+      cursor: pointer;
+
+      background-image: "/static/imgs/logo-fade.png";
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .prediction {
+      font-family: Roboto, sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+    }
+
+    .recycle_type {
+      font-family: Roboto, sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #04752a;
+    }
+  </style>
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
-  {% block body %} {% with form=form %} {% include "nav.html" %} {% endwith %}
-
-  <header>{% block header %}{% endblock %}</header>
-
-  <main role="main">
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %}
-    <div class="row">
-      <div class="col-md-12">
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">
-          <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
-          {{ message }}
-        </div>
-        <!-- end .alert -->
-        {% endfor %}
-      </div>
-      <!-- end col-md -->
+<body>
+  <!-- Header -->
+  <header class="mdc-top-app-bar" style="align-items: center;position: relative;">
+    <div class="mdc-top-app-bar__row" style="max-width: 700px;">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <span class="mdc-top-app-bar__title" style="font-weight: 900; font-size: 30px;">
+          Can I Recycle It?</span>
+      </section>
     </div>
-    <!-- end row -->
-    {% endif %} {% endwith %} {% block content %}{% endblock %}
-  </main>
+  </header>
+  <!-- Header -->
 
-  {% include "footer.html" %}
-
-  <!-- JavaScript at the bottom for fast page loading -->
-  <script src=""></script>
-  {% block js %}{% endblock %}
-  <!-- end scripts -->
-  {% endblock %}
+  <!-- Content -->
+  {% block content %}{% endblock %}
+  <!-- Content -->
 </body>
+<!-- Add Javascript -->
+{% block js %}{% endblock %}
 
 </html>

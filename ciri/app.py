@@ -9,7 +9,8 @@ from ciri import public
 
 
 def create_app(config_object="ciri.settings"):
-    """Create application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
+    """Create application factory, as explained here:
+    http://flask.pocoo.org/docs/patterns/appfactories/.
 
     :param config_object: The configuration object to use.
     """

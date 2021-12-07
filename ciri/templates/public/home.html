@@ -1,35 +1,72 @@
-
 {% extends "layout.html" %}
 {% block content %}
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-    
-      <h1 class="display-3">Welcome to CIRI Application</h1>
-    
-      <p>This is a starter Flask template. It includes Bootstrap 4, jQuery 3, Flask-SQLAlchemy, WTForms, and various testing utilities out of the box.</p>
-      <p><a href="https://github.com/cookiecutter-flask/cookiecutter-flask" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-    </div>
-</div><!-- /.jumbotron -->
+<div class="content">
+  <div class="container">
+    <div class="mdc-card mdc-card--outlined" style="min-height: 400px;">
+      <div class="dropzone" onclick="upload_file()">
 
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4">
-      <h2><i class="fa fa-code"></i> Bootstrap 4</h2>
-      <p>Sleek, intuitive, and powerful mobile-first front-end framework for faster and easier web development.</p>
-      <p><a class="btn btn-outline-secondary" href="http://getbootstrap.com/">Official website &raquo;</a></p>
+        <input type="file" id="input_file" accept="image/*" capture="camera" name="input_file" on autocomplete="off"
+          tabindex="-1" style="display: none;">
+        <div><img id="input_file_view" style="width:100%;" /></div>
+        <div style="color: #302f2f;">Click to take a picture or upload...</div>
+      </div>
+      <div style="padding:20px;">
+        <span class="prediction" id="prediction_label"></span>
+        <span class="recycle_type" id="can_recycle"></span>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <h2><i class="fa fa-flask"></i> SQLAlchemy</h2>
-      <p>SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.</p>
-      <p><a href="http://www.sqlalchemy.org/" class="btn btn-outline-secondary">Official website &raquo;</a></p>
-   </div>
-    <div class="col-lg-4">
-      <h2><i class="fa fa-edit"></i> WTForms</h2>
-      <p>WTForms is a flexible forms validation and rendering library for python web development.</p>
-      <p><a href="http://wtforms.simplecodes.com/" class="btn btn-outline-secondary">Official website &raquo;</a></p>
-    </div>
-  </div><!-- /.row -->
+  </div>
 </div>
 {% endblock %}
+{% block js %}
+<script>
+  // API URL
+  //axios.defaults.baseURL = 'http://ciri_apis:80/';
+  axios.defaults.baseURL = '/api/';
 
+  // file input
+  var input_file = document.getElementById("input_file");
+  var prediction_label = document.getElementById("prediction_label");
+  var can_recycle = document.getElementById("can_recycle");
+  var input_file_view = document.getElementById('input_file_view');
+
+  function upload_file() {
+    // Clear
+    prediction_label.innerHTML = "";
+    input_file_view.src = null;
+
+    input_file.click();
+  }
+
+  function input_file_onchange() {
+    // Read the uploaded file and display it
+    var file_to_upload = input_file.files[0];
+    input_file_view.src = URL.createObjectURL(file_to_upload);
+    prediction_label.innerHTML = "";
+
+    // Post the image to the /predict API
+    var formData = new FormData();
+    formData.append("file", input_file.files[0]);
+    axios.post('/predict', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(function (response) {
+      var prediction_results = response.data;
+      console.log(prediction_results);
+
+      // Display the results
+      prediction_label.innerHTML = prediction_results["prediction"];
+      if (prediction_results["prediction"] != "trash") {
+        can_recycle.innerHTML = "Yes!"
+      } else {
+        can_recycle.innerHTML = "No :("
+      }
+
+    });
+  }
+
+  // Attach an onchange event
+  input_file.onchange = input_file_onchange;
+</script>
+{% endblock %}
