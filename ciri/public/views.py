@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
-import ciri.settings
+import ciri.settings as settings
 import requests
 from ciri.public.forms import UploadImageForm
 from flask import Blueprint, render_template, request
@@ -25,7 +25,7 @@ def upload():
 
         payload = {"file": img}
         result = requests.post(
-            f"http://localhost:8020/image/upload?category={form.category.data}",
+            f"{settings.API_ENDPOINT}/image/upload?category={form.category.data}",
             files=payload,
         )
 
