@@ -14,5 +14,8 @@ RUN --mount=type=cache,target=/root/.cache \
 EXPOSE 8080
 
 ENV FLASK_APP=auto_app.py
+ENV SECRET_KEY=not-so-secret
+ENV LOG_LEVEL=info
+ENV GUNICORN_WORKERS=1
 
 CMD ["python","-m", "flask", "run", "--host", "0.0.0.0", "--port", "8080"]
