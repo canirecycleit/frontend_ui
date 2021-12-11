@@ -92,7 +92,7 @@
 
       // Display the results
       prediction_label.innerHTML = prediction_results["prediction"];
-      if (prediction_results["prediction"] != "trash") {
+      if (!["trash", "organic"].includes(prediction_results["prediction"])) {
         can_recycle.innerHTML = "Yes!"
       } else {
         can_recycle.innerHTML = "No :("
