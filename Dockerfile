@@ -17,5 +17,6 @@ ENV FLASK_APP=auto_app.py
 ENV SECRET_KEY=not-so-secret
 ENV LOG_LEVEL=info
 ENV GUNICORN_WORKERS=1
+ENV SEND_FILE_MAX_AGE_DEFAULT=0
 
 CMD ["python","-m", "flask", "run", "--host", "0.0.0.0", "--port", "8080"]
