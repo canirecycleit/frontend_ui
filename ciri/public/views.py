@@ -25,7 +25,7 @@ def upload():
 
         payload = {"file": img}
         result = requests.post(
-            f"{settings.API_ENDPOINT}/image/upload?category={form.category.data}",
+            f"{settings.API_ENDPOINT}image/upload?category={form.category.data}",
             files=payload,
         )
 
