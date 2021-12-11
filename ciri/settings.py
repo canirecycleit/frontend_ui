@@ -19,7 +19,6 @@ BCRYPT_LOG_ROUNDS = env.int("BCRYPT_LOG_ROUNDS", default=13)
 DEBUG_TB_ENABLED = DEBUG
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 CACHE_TYPE = "simple"  # Can be "memcached", "redis", etc.
-SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 CATEGORIES = [
     ("cardboard", "Cardboard"),
@@ -32,4 +31,4 @@ CATEGORIES = [
     ("other", "Other"),
 ]
 
-API_ENDPOINT = "http://endpoint/"
+API_ENDPOINT = "http://api:8080/"
