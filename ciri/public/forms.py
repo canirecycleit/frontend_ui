@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """Public forms."""
+from ciri import settings
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField, FileRequired
 from wtforms import SubmitField
@@ -19,7 +20,7 @@ class UploadImageForm(FlaskForm):
         "Image Category",
         id="image_category",
         validators=[DataRequired()],
-        choices=[("trash", "Trash"), ("organic", "Organic"), ("test", "Test")],
+        choices=settings.CATEGORIES,
     )
 
     file = FileField(

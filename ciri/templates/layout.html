@@ -1,93 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <title>Can I Recycle It (BETA)</title>
-  <!-- Add reference to Google fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <!-- Google Material Design Styles -->
-  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
-  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
   <!-- Add javascript package axios for accessing APIs -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <!-- Add Stylesheet -->
-  <style>
-    body {
-      margin: 0;
-      background-color: #efefef;
-    }
-
-    .mdc-top-app-bar {
-      background-color: #1c4385;
-    }
-
-    .content {
-
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-items: center;
-    }
-
-    .container {
-      max-width: 650px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .dropzone {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px;
-      border-width: 2px;
-      border-radius: 2px;
-      border-color: #cccccc;
-      border-style: dashed;
-      background-color: #fafafa;
-      outline: none;
-      transition: border .24s ease-in-out;
-      cursor: pointer;
-
-      background-image: "/static/imgs/logo-fade.png";
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    .prediction {
-      font-family: Roboto, sans-serif;
-      font-size: 32px;
-      font-weight: 900;
-    }
-
-    .recycle_type {
-      font-family: Roboto, sans-serif;
-      font-size: 32px;
-      font-weight: 900;
-      color: #04752a;
-    }
-  </style>
+  <!-- Styles -->
+  {% block style %}{% endblock %}
+  <!-- Styles -->
 </head>
 
-<body>
-  <!-- Header -->
-  <header class="mdc-top-app-bar" style="align-items: center;position: relative;">
-    <div class="mdc-top-app-bar__row" style="max-width: 700px;">
-      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-        <span class="mdc-top-app-bar__title" style="font-weight: 900; font-size: 30px;">
-          Can I Recycle It?</span>
-      </section>
-    </div>
-  </header>
-  <!-- Header -->
+<body style="background-color: #efefef;">
+  <!-- Navbar -->
+  {% include 'nav.html' %}
+  <!-- Navbar -->
 
   <!-- Content -->
-  {% block content %}{% endblock %}
+  <div class="container-fluid" style="padding: 20px;">
+    {% block content %}{% endblock %}
+  </div>
   <!-- Content -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <!-- Add Javascript -->
+  {% block js %}{% endblock %}
 </body>
-<!-- Add Javascript -->
-{% block js %}{% endblock %}
 
 </html>
