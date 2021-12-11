@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% set active_page = "home" %}
+
+{% block style %}
+<!-- Add Stylesheet -->
+<style>
+  .dropzone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-width: 2px;
+    border-radius: 2px;
+    border-color: #cccccc;
+    border-style: dashed;
+    background-color: #fafafa;
+    outline: none;
+    transition: border .24s ease-in-out;
+    cursor: pointer;
+    min-height: 200px;
+    background-image: "/static/imgs/logo-fade.png";
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .prediction {
+    font-family: Roboto, sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+  }
+
+  .recycle_type {
+    font-family: Roboto, sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: #04752a;
+  }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="dropzone" onclick="upload_file()">
+  <input type="file" id="input_file" accept="image/*" capture="camera" name="input_file" on autocomplete="off"
+    tabindex="-1" style="display: none;">
+  <div><img id="input_file_view" style="width:100%;" /></div>
+  <div style="color: #302f2f;">Click to take a picture or upload...</div>
+</div>
+
+<div style="padding:20px;">
+  <span class="prediction" id="prediction_label"></span>
+  <span class="recycle_type" id="can_recycle"></span>
+</div>
+
+
+{% endblock %}
+{% block js %}
+<script>
+  // API URL
+  //axios.defaults.baseURL = 'http://ciri_apis:80/';
+  axios.defaults.baseURL = '/api/';
+
+  // file input
+  var input_file = document.getElementById("input_file");
+  var prediction_label = document.getElementById("prediction_label");
+  var can_recycle = document.getElementById("can_recycle");
+  var input_file_view = document.getElementById('input_file_view');
+
+  function upload_file() {
+    // Clear
+    prediction_label.innerHTML = "";
+    input_file_view.src = null;
+
+    input_file.click();
+  }
+
+  function input_file_onchange() {
+    // Read the uploaded file and display it
+    var file_to_upload = input_file.files[0];
+    input_file_view.src = URL.createObjectURL(file_to_upload);
+    prediction_label.innerHTML = "";
+
+    // Post the image to the /predict API
+    var formData = new FormData();
+    formData.append("file", input_file.files[0]);
+    axios.post('/predict', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(function (response) {
+      var prediction_results = response.data;
+      console.log(prediction_results);
+
+      // Display the results
+      prediction_label.innerHTML = prediction_results["prediction"];
+      if (prediction_results["prediction"] != "trash") {
+        can_recycle.innerHTML = "Yes!"
+      } else {
+        can_recycle.innerHTML = "No :("
+      }
+
+    });
+  }
+
+  // Attach an onchange event
+  input_file.onchange = input_file_onchange;
+</script>
+{% endblock %}

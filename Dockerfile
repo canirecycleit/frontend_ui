@@ -1,21 +1,18 @@
-FROM node:14.9.0-buster-slim
+FROM python:3.9
 
-# Update baseline and ensure we don't run the app as root.
-RUN set -ex; \
-    apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends openssl && \
-    npm install -g http-server && \
-    useradd -ms /bin/bash app -d /home/app -G sudo -u 2000 -p "$(openssl passwd -1 Passw0rd)" && \
-    mkdir -p /app && \
-    chown app:app /app
+WORKDIR /app
+COPY . /app
+
+# Update PIP & install requirements
+RUN python -m pip install --upgrade pip
+
+# Switch to the new user
+
+RUN --mount=type=cache,target=/root/.cache \
+    pip install -r requirements.txt
 
 EXPOSE 8080
 
-# Switch to the new user
-USER app
-WORKDIR /app
+ENV FLASK_APP=auto_app.py
 
-ADD --chown=app:app . /app
-
-ENTRYPOINT ["http-server"]
+CMD ["python","-m", "flask", "run", "--host", "0.0.0.0", "--port", "8080"]
